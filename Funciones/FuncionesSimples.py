@@ -4,6 +4,24 @@ import xml.etree.ElementTree as ET
 
 class FuncionesS:
 
+    def AnalizadorImagen(cadena):
+        cadena = str(cadena).replace('\t',"").replace(" ","")
+        cadena = cadena.split('\n')
+        
+        new = []
+        for i in range(len(cadena)):
+            var = list(cadena[i])
+            if len(var) > 1:
+                new.append(var)
+
+        for f in range(len(new)):
+            for c in range(len(new[f])):
+                if str(new[f][c]) == "*":
+                    print('posicion['+str(f)+']['+str(c)+'] = '+str(new[f][c]) )
+                
+
+
+
     def informacion():
         messagebox.showinfo("IPC2","Proyecto 2\nCreado por: Bryan Eduardo Caal Racanac\nCarnet: 201801155")
 
@@ -18,11 +36,7 @@ class FuncionesS:
         root = tree.getroot()
 
         for elem in root:
-            #nombre = elem[0].text
-            #fila = elem[1].text
-            #columna = elem[2].text
             imagen = elem[3].text
-            imagen = list(imagen)
-            print(imagen)
+            FuncionesS.AnalizadorImagen(imagen)
 
 FuncionesS.datosXML()
