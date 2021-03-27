@@ -4,22 +4,24 @@ import xml.etree.ElementTree as ET
 import time
 
 
+
 table = []
 info = {}
 class FuncionesS:
 
+    def tres(uno,dos,tres):
+        print(uno,dos,tres)
+
     #FALTAN AGREGAR LAS FUNCIONES PARA REALIZAR LAS OPERACIONES Y RECIBIR COMO PARAMETRO EL NOMBRE DE LA MATRIX
-    def timeDate(Operacion):
+    def operaciones(Operacion):
         operacion = str(Operacion)
         tiempo = str(time.strftime("%X"))
         fecha = str(time.strftime("%x"))
 
         if operacion == "Rotación horizontal":
-            
             print(fecha+"   "+tiempo+"   Rotación horizontal")
             operaciones = {"Fecha":fecha,"Hora":tiempo,"Operacion": operacion}
             table.append(operaciones)
-            
         elif operacion == "Rotación vertical":
             print(fecha+"   "+tiempo+"   Rotación vertical")
             operaciones = {"Fecha":fecha,"Hora":tiempo,"Operacion": operacion}
@@ -34,10 +36,16 @@ class FuncionesS:
             table.append(operaciones)
         elif operacion == "Agregar línea horizontal":
             print(fecha+"   "+tiempo+"   Agregar línea horizontal")
+            #--------------------------------------
+            from Funciones.Ventanas import ventanas
+            ventanas.cinco()
             operaciones = {"Fecha":fecha,"Hora":tiempo,"Operacion": operacion}
             table.append(operaciones)
         elif operacion == "Agregar línea vertical":
             print(fecha+"   "+tiempo+"   Agregar línea vertical")
+            #--------------------------------------
+            from Funciones.Ventanas import ventanas
+            ventanas.seis()
             operaciones = {"Fecha":fecha,"Hora":tiempo,"Operacion": operacion}
             table.append(operaciones)
         elif operacion == "Agregar rectángulo":
@@ -46,6 +54,9 @@ class FuncionesS:
             table.append(operaciones)
         elif operacion == "Agregar triángulo rectángulo":
             print(fecha+"   "+tiempo+"   Agregar triángulo rectángulo")
+            #--------------------------------------
+            from Funciones.Ventanas import ventanas
+            ventanas.ocho()
             operaciones = {"Fecha":fecha,"Hora":tiempo,"Operacion": operacion}
             table.append(operaciones)
 
