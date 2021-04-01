@@ -3,8 +3,6 @@ from tkinter import filedialog
 import xml.etree.ElementTree as ET
 import time
 
-
-
 table = []
 info = {}
 class FuncionesS:
@@ -172,3 +170,5 @@ class FuncionesS:
         file.close()
 
         messagebox.showinfo("Reporte","Reporte Generado con exito")
+
+    

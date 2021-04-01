@@ -1,40 +1,47 @@
 from Listas.nodos import Nodo, nodoEncabezado
 
-class listaEncabezado:
-    def __init__(self,primero = None):
-        self.primero = primero
+class listaEncabezados:
+    def __init__(self):
+        self.primero = None
+        self.ultimo = None
 
-    def setEncabezado(self, nuevo):
-        if self.primero == None:
-            self.primero = nuevo
-        elif nuevo.id < self.primero.id:
-            nuevo.siguiente = self.primero
-            self.primero.anterior = nuevo
-            self.primero = nuevo
+    def vacia(self):
+        return self.primero == None
+
+    def agregarEncabezado(self,id):
+        
+        if self.vacia():
+            self.primero = self.ultimo =  Nodo(id)
         else:
-            actual = self.primero
-            while actual.siguiente != None:
+            aux = self.ultimo
+            self.ultimo = aux.siguiente = Nodo(id)
+            self.ultimo.anterior = aux
 
-                if nuevo.id < actual.siguiente.id:
-                    nuevo.siguiente = actual.siguiente
-                    actual.siguiente.anterior = nuevo
-                    nuevo.anterior = actual
-                    actual.siguiente = nuevo
-                    break
+    def obtenerEncabezado(self,buscar):
+        if self.vacia():
+            print("No hay elementos el al cabecera")
 
-                actual = actual.siguiente
+        else:
+            aux = self.primero
+            while aux.siguiente != None:
+                if aux.id == buscar:
+                    return aux
+                    
+                aux = aux.siguiente
+            
+            if aux.id == buscar:
+                return aux
+            
+    def recorrer(self):
+        if self.vacia():
+            print("No hay elementos")
 
-            if actual.siguiente == None:
-                actual.siguiente = nuevo
-                nuevo.anterior = actual
+        else:
+            aux = self.primero
+            while aux.siguiente != None:
 
+                print(aux.id)
 
-    def getEncabezado(self, id):
-        actual = self.primero
-
-        while actual != None:
-            if actual.id == id:
-                return actual
-            actual = actual.siguiente
-
-        return None
+                aux = aux.siguiente
+            
+            print(aux.id)

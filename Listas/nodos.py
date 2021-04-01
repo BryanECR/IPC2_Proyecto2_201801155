@@ -1,4 +1,4 @@
-class Nodo:
+class Celda:
     def __init__(self, fila, columna, valor):
         self.valor = valor
         self.fila = fila
@@ -8,7 +8,7 @@ class Nodo:
         self.arriba = None
         self.abajo = None
 
-class nodoEncabezado:
+class Nodo:
     def __init__(self,id):
         self.id = id
         self.siguiente = None

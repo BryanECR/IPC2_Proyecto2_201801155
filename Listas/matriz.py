@@ -1,61 +1,77 @@
-from Listas.nodos import Nodo, nodoEncabezado
-from Listas.encabezado import listaEncabezado
+from Listas.nodos import Celda
+from Listas.encabezado import listaEncabezados
 
-class matriz:
+class Matriz:
     def __init__(self):
-        self.eFilas = listaEncabezado()
-        self.eColumnas = listaEncabezado()
+        self.eFilas = listaEncabezados()
+        self.eColumnas = listaEncabezados()
 
-    def insertar(self, fila, columna, valor):
-        nuevo = Nodo(fila,columna,valor)
+    def crearEncabezados(self,filas,columnas):
+        for i in range(filas):
+            self.eFilas.agregarEncabezado(i)
+        
+        for i in range(columnas):
+            self.eColumnas.agregarEncabezado(i)
+            
+    def insertarCelda(self,fila,columna,contenido):
+        nuevo = Celda(fila,columna,contenido)
 
-        #insercion encabezado por filas
-        eFila = self.eFilas.getEncabezado(fila)
-        if eFila == None:
-            eFila = nodoEncabezado(fila)
-            eFila.accesoNodo = nuevo
-            self.eFilas.setEncabezado(eFila)
-        else:
-            if nuevo.columna < eFila.accesoNodo.columna:
-                nuevo.derecha = eFila.accesoNodo
-                eFila.accesoNodo.izquierda = nuevo
-                eFila.accesoNodo = nuevo
-            else:
-                actual = eFila.accesoNodo
-                while actual.derehca != None:
-                    if nuevo.columna < actual.derecha.columna:
-                        nuevo.derecha = actual.derecha
-                        actual.derecha.izquierda = nuevo
-                        nuevo.izquierda = actual
-                        actual.derecha = nuevo
-                        break
-                    actual = actual.derecha
-                
-                if actual.derecha == None:
-                    actual.derecha = nuevo
-                    nuevo.izquierda = actual
+        #HACER CONEXIONES POR FILAS
+        eFila = self.eFilas.obtenerEncabezado(fila)
+        if nuevo.fila == eFila.id:
+            nuevo.derecha = eFila.acceso
+            nuevo.izquierda = eFila.acceso
+            eFila.acceso = nuevo
 
-        #insercion encabezado por columnas
-        eColumna = self.eColumnas.getEncabezado(columna)
-        if eColumna == None:
-            eColumna = nodoEncabezado(columna)
-            eColumna.accesoNodo = nuevo
-            self.eColumnas.setEncabezado(eColumna)
-        else:
-            if nuevo.fila < eColumna.accesoNodo.fila:
-                nuevo.abajo = eColumna.accesoNodo
-                eColumna.accesoNodo.arriba = nuevo
-                eColumna.accesoNodo = nuevo
-            else:
-                actual = eColumna.accesoNodo
-                while actual.abajo != None:
-                    if nuevo.fila < actual.abajo.fila:
-                        nuevo.abajo = actual.abajo
-                        actual.abajo.arriba = nuevo
-                        actual.abajo = nuevo
-                        break
-                    actual = actual.abajo
+        #HACER CONEXIONES POR COLUMNAS
+        eColumna = self.eColumnas.obtenerEncabezado(columna)
+        if nuevo.columna == eColumna.id:
+            nuevo.abajo = eColumna.acceso
+            nuevo.arriba = eColumna.acceso
+            eColumna.acceso = nuevo  
 
-                if actual.abajo == None:
-                    actual.abajo = nuevo
-                    nuevo.arriba = actual
+
+    def recorrerFilas(self):
+        eFila = self.eFilas.primero
+        datos = []
+        while eFila != None:
+
+            actual = eFila.acceso
+            try:
+                Fila = actual.fila
+            except:
+                break
+            
+            while actual != None:
+
+                informacion = {"Fila":Fila,"Columna":actual.columna,"Contenido":actual.contenido}
+                datos.append(informacion)   
+
+                actual = actual.izquierda
+
+            eFila = eFila.siguiente
+
+        return datos
+ 
+    def Filas(self):
+        eFila = self.eFilas.primero
+        contador = 0
+        while eFila != None:
+            contador += 1
+            eFila = eFila.siguiente
+
+        return contador
+
+    def Columnas(self):
+        eColumna = self.eColumnas.primero
+        contador = 0
+        while eColumna != None:
+            contador += 1
+            eColumna = eColumna.siguiente
+
+        return contador 
+
+    
+
+
+
