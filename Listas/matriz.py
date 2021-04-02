@@ -48,8 +48,10 @@ class Matriz:
                 datos.append(informacion)   
 
                 actual = actual.izquierda
-
-            eFila = eFila.siguiente
+            try:
+                eFila = eFila.siguiente
+            except:
+                continue
 
         return datos
  

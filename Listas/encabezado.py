@@ -1,4 +1,4 @@
-from Listas.nodos import Nodo, nodoEncabezado
+from Listas.nodos import Nodo
 
 class listaEncabezados:
     def __init__(self):

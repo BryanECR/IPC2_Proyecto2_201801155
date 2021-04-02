@@ -1,6 +1,6 @@
 class Celda:
-    def __init__(self, fila, columna, valor):
-        self.valor = valor
+    def __init__(self, fila, columna, contenido):
+        self.contenido = contenido
         self.fila = fila
         self.columna = columna
         self.derecha = None
@@ -13,4 +13,4 @@ class Nodo:
         self.id = id
         self.siguiente = None
         self.anterior = None
-        self.accesoNodo = None
+        self.acceso = None

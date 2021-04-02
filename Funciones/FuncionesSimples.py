@@ -2,10 +2,38 @@ from tkinter import messagebox
 from tkinter import filedialog
 import xml.etree.ElementTree as ET
 import time
+from Listas.matriz import Matriz
+import os
 
 table = []
 info = {}
+matrix = Matriz()
 class FuncionesS:
+
+    def graficar(nombre,mat):
+        cadena = "<TR>\n<TD>A</TD>\n"
+        contador = 0
+        while( contador < len(mat[0])):
+            cadena += "<TD>"+str(contador)+"</TD>\n"
+            contador += 1 
+        cadena+="</TR>\n"
+
+        fila = 0
+        while( fila < len(mat) ):
+            cadena += "<TR>\n<TD>"+str(fila)+"</TD>\n"
+            columna = 0
+            while(columna < len(mat[0])):
+                cadena += "<TD>"+str(mat[fila][columna])+"</TD>\n"
+                columna += 1
+            cadena += "</TR>\n"
+            fila += 1
+        
+        file = open(nombre+".dot","w")
+        file.write("digraph G {\n a[label=<\n<TABLE>\n"+cadena+'</TABLE>\n> shape="box"]\n}')
+        file.close()
+        os.system('dot -Tpng '+nombre+'.dot -o '+nombre+'.png')
+
+        print("***")
 
     def tres(uno,dos,tres):
         print(uno,dos,tres)
@@ -59,8 +87,9 @@ class FuncionesS:
             table.append(operaciones)
 
     #FALTA AGREGAR LOS VALORES A LA LISTA ORTOGONAL PARA PODERLA MANEJAR
-    def AnalizadorImagen(nombre,cadena):
-        global info
+    def AnalizadorImagen(nombre,cadena,filas,columnas):
+        global info, matrix
+        matrix.crearEncabezados(filas,columnas)
         cadena = str(cadena).replace('\t',"").replace(" ","")
         cadena = cadena.split('\n')
         ellenos = 0
@@ -75,12 +104,34 @@ class FuncionesS:
         for f in range(len(new)):
             for c in range(len(new[f])):
                 if str(new[f][c]) == "*":
-                    print('posicion['+str(f)+']['+str(c)+'] = '+str(new[f][c]) )
+                    matrix.insertarCelda(int(f),int(c),new[f][c])
                     ellenos += 1
                 else:
+                    matrix.insertarCelda(int(f),int(c),new[f][c])
                     evacios += 1
         
         info = {"Fecha":str(time.strftime("%x")),"Hora":str(time.strftime("%X")),"Nombre":nombre,"Ellenos":ellenos,"Evacios":evacios}
+
+        #OBTENER FILAS Y COLUMNAS PARA LA GRAFICA
+        Filas = matrix.Filas()
+        Columnas = matrix.Columnas()
+
+        matgrap = []
+        for i in range(Filas):
+            matgrap.append([0]*Columnas)
+
+        datos = matrix.recorrerFilas()
+
+        for i in range(len(datos)):
+            f = datos[i]['Fila']
+            c = datos[i]['Columna']
+            cont = datos[i]['Contenido']
+            if cont == "*":
+                matgrap[f][c] = "*"
+            else:
+                matgrap[f][c] = " "
+
+        FuncionesS.graficar("normal",matgrap)
                 
     def informacion():
         messagebox.showinfo("IPC2","Proyecto 2\nCreado por: Bryan Eduardo Caal Racanac\nCarnet: 201801155")
@@ -97,8 +148,10 @@ class FuncionesS:
 
         for elem in root:
             nombre = elem[0].text
+            filas = int(elem[1].text)
+            columnas = int(elem[2].text)
             imagen = elem[3].text
-            FuncionesS.AnalizadorImagen(nombre,imagen)
+            FuncionesS.AnalizadorImagen(nombre,imagen,filas,columnas)
 
     def reporte():
         global info

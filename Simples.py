@@ -1,6 +1,6 @@
 from tkinter import *
 from Funciones.FuncionesSimples import FuncionesS
-
+from PIL import ImageTk,Image
 
 class Simples:
 
@@ -41,9 +41,25 @@ class Simples:
         
         Ayuda.add_command(label="Documentacion")
 
-
         miFrame = Frame(raiz,width=800, height=500)
         miFrame.pack()
+
+        #----------------------------------------- COLOCAR LABELS PARA MOSTRAR IMAGENES ---------------------------------------
+        label1 = Label(miFrame,text="Matriz Oroginal",font=18)
+        label1.place(x=100,y=20)
+        label2 = Label(miFrame,text="Resultado",font=18)
+        label2.place(x=600,y=20)
+
+        
+
+
+        boton = Button(miFrame,text="Mostrar Original",font=15 )
+        boton.place(x=100,y=450)
+        boton2 = Button(miFrame,text="Mostrar Resultado",font=15)
+        boton2.place(x=500,y=450)
+        boton3 = Button(miFrame,text="Borrar",font=15)
+        boton3.place(x=700,y=450)
+
 
 
         raiz.mainloop()
