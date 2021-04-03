@@ -38,7 +38,27 @@ class FuncionesS:
     def tres(uno,dos,tres):
         print(uno,dos,tres)
 
-    #FALTAN AGREGAR LAS FUNCIONES PARA REALIZAR LAS OPERACIONES Y RECIBIR COMO PARAMETRO EL NOMBRE DE LA MATRIX
+    def matrizOriginal():
+        Filas = matrix.Filas()
+        Columnas = matrix.Columnas()
+
+        matrixOriginal = []
+        for i in range(Filas):
+            matrixOriginal.append([0]*Columnas)
+
+        datos = matrix.recorrerFilas()
+
+        for i in range(len(datos)):
+            f = datos[i]['Fila']
+            c = datos[i]['Columna']
+            cont = datos[i]['Contenido']
+            if cont == "*":
+                matrixOriginal[f][c] = "*"
+            else:
+                matrixOriginal[f][c] = " "
+
+        return matrixOriginal
+
     def operaciones(Operacion):
         operacion = str(Operacion)
         tiempo = str(time.strftime("%X"))
@@ -56,36 +76,45 @@ class FuncionesS:
             print(fecha+"   "+tiempo+"   Transpuesta")
             operaciones = {"Fecha":fecha,"Hora":tiempo,"Operacion": operacion}
             table.append(operaciones)
+        #--------------------- OPERACIONES CON PARAMETROS --------------------------
         elif operacion == "Limpiar zona":
             print(fecha+"   "+tiempo+"   Limpiar zona")
             operaciones = {"Fecha":fecha,"Hora":tiempo,"Operacion": operacion}
             table.append(operaciones)
+            from Funciones.Ventanas import ventanas
+            mat = FuncionesS.matrizOriginal() 
+            ventanas.cuatro(mat)
         elif operacion == "Agregar línea horizontal":
             print(fecha+"   "+tiempo+"   Agregar línea horizontal")
-            #--------------------------------------
-            from Funciones.Ventanas import ventanas
-            ventanas.cinco()
             operaciones = {"Fecha":fecha,"Hora":tiempo,"Operacion": operacion}
             table.append(operaciones)
+            from Funciones.Ventanas import ventanas
+            mat = FuncionesS.matrizOriginal() 
+            ventanas.cinco(mat)
+            
         elif operacion == "Agregar línea vertical":
             print(fecha+"   "+tiempo+"   Agregar línea vertical")
-            #--------------------------------------
-            from Funciones.Ventanas import ventanas
-            ventanas.seis()
             operaciones = {"Fecha":fecha,"Hora":tiempo,"Operacion": operacion}
             table.append(operaciones)
+            from Funciones.Ventanas import ventanas
+            mat = FuncionesS.matrizOriginal() 
+            ventanas.seis(mat)
+            
         elif operacion == "Agregar rectángulo":
             print(fecha+"   "+tiempo+"   Agregar rectángulo")
             operaciones = {"Fecha":fecha,"Hora":tiempo,"Operacion": operacion}
             table.append(operaciones)
+            from Funciones.Ventanas import ventanas
+            mat = FuncionesS.matrizOriginal() 
+            ventanas.siete(mat)
         elif operacion == "Agregar triángulo rectángulo":
             print(fecha+"   "+tiempo+"   Agregar triángulo rectángulo")
-            #--------------------------------------
-            from Funciones.Ventanas import ventanas
-            ventanas.ocho()
             operaciones = {"Fecha":fecha,"Hora":tiempo,"Operacion": operacion}
             table.append(operaciones)
-
+            from Funciones.Ventanas import ventanas
+            mat = FuncionesS.matrizOriginal() 
+            ventanas.ocho(mat)
+            
     #FALTA AGREGAR LOS VALORES A LA LISTA ORTOGONAL PARA PODERLA MANEJAR
     def AnalizadorImagen(nombre,cadena,filas,columnas):
         global info, matrix

@@ -9,6 +9,8 @@ class Simples:
 
     def ventanaSimple():
         raiz = Tk()
+        miFrame = Frame(raiz,width=800, height=500)
+        miFrame.pack()
         raiz.title("Operaciones Simples")
         raiz.resizable(False,False)
 
@@ -41,8 +43,7 @@ class Simples:
         
         Ayuda.add_command(label="Documentacion")
 
-        miFrame = Frame(raiz,width=800, height=500)
-        miFrame.pack()
+        
 
         #----------------------------------------- COLOCAR LABELS PARA MOSTRAR IMAGENES ---------------------------------------
         label1 = Label(miFrame,text="Matriz Oroginal",font=18)
@@ -50,17 +51,23 @@ class Simples:
         label2 = Label(miFrame,text="Resultado",font=18)
         label2.place(x=600,y=20)
 
-        
+        def Original():
+            try:
+                imagen = ImageTk.PhotoImage(Image.open(r"normal.png"))
+                labelimagen = Label(image=imagen).place(x=10,y=50)
+            except:
+                print("No se encontro la Imagen")
 
 
-        boton = Button(miFrame,text="Mostrar Original",font=15 )
+        boton = Button(miFrame,text="Mostrar Original",font=15)
         boton.place(x=100,y=450)
+
         boton2 = Button(miFrame,text="Mostrar Resultado",font=15)
         boton2.place(x=500,y=450)
         boton3 = Button(miFrame,text="Borrar",font=15)
         boton3.place(x=700,y=450)
 
 
-
+        
         raiz.mainloop()
 
