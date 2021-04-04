@@ -35,9 +35,6 @@ class FuncionesS:
 
         print("***")
 
-    def tres(uno,dos,tres):
-        print(uno,dos,tres)
-
     def matrizOriginal():
         Filas = matrix.Filas()
         Columnas = matrix.Columnas()
@@ -115,7 +112,6 @@ class FuncionesS:
             mat = FuncionesS.matrizOriginal() 
             ventanas.ocho(mat)
             
-    #FALTA AGREGAR LOS VALORES A LA LISTA ORTOGONAL PARA PODERLA MANEJAR
     def AnalizadorImagen(nombre,cadena,filas,columnas):
         global info, matrix
         matrix.crearEncabezados(filas,columnas)
@@ -164,6 +160,9 @@ class FuncionesS:
                 
     def informacion():
         messagebox.showinfo("IPC2","Proyecto 2\nCreado por: Bryan Eduardo Caal Racanac\nCarnet: 201801155")
+
+    def docu():
+        os.system("Documentacion-P2.pdf")
 
     def abrirArchivo():
         file_path = filedialog.askopenfilename(initialdir = "", title = "Abrir Archivo", filetypes = (("text files", "*.xml"),("all files", "*.*")) )

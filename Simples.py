@@ -40,8 +40,7 @@ class Simples:
         Ayuda = Menu(barraMenu,tearoff=0)
         barraMenu.add_cascade(label="Ayuda", menu=Ayuda)
         Ayuda.add_command(label="Informacion",command= lambda: FuncionesS.informacion() )
-        
-        Ayuda.add_command(label="Documentacion")
+        Ayuda.add_command(label="Documentacion",command= lambda: FuncionesS.docu() )
 
         
 
