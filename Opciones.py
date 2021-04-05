@@ -1,5 +1,6 @@
 from tkinter import *
-from Simples import Simples
+from Ventanas.Simples import Simples
+from Ventanas.Dos import Dos 
 
 class Opciones:
 
@@ -19,7 +20,12 @@ class Opciones:
 
         botonSimple = Button(root,text="Simples", command= simples ).place(x=120,y=60)
 
-        botonDoble = Button(root, text="Con dos imagenes" ).place(x=90,y=100)
+        def dobles():
+            root.destroy()
+            Dos.window()
+
+
+        botonDoble = Button(root, text="Con dos imagenes",command= dobles ).place(x=90,y=100)
 
         root.mainloop()
 

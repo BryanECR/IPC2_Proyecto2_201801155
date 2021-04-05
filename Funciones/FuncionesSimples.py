@@ -5,6 +5,7 @@ import time
 from Listas.matriz import Matriz
 import os
 
+arr = []
 table = []
 info = {}
 matrix = Matriz()
@@ -31,10 +32,11 @@ class FuncionesS:
         file = open(nombre+".dot","w")
         file.write("digraph G {\n a[label=<\n<TABLE>\n"+cadena+'</TABLE>\n> shape="box"]\n}')
         file.close()
-        os.system('dot -Tpng '+nombre+'.dot -o '+nombre+'.png')
-
+        os.system("dot -Tpng "+nombre+".dot -o "+nombre+".png")
+        from Ventanas.Simples import Simples
+        Simples.opActual(nombre)
         print("***")
-
+   
     def matrizOriginal():
         Filas = matrix.Filas()
         Columnas = matrix.Columnas()
@@ -65,14 +67,27 @@ class FuncionesS:
             print(fecha+"   "+tiempo+"   Rotación horizontal")
             operaciones = {"Fecha":fecha,"Hora":tiempo,"Operacion": operacion}
             table.append(operaciones)
+            mat = FuncionesS.matrizOriginal()
+            matrotH = FuncionesS.rHorizontal(mat)
+            FuncionesS.graficar("rHorizontal",matrotH)
+
         elif operacion == "Rotación vertical":
             print(fecha+"   "+tiempo+"   Rotación vertical")
             operaciones = {"Fecha":fecha,"Hora":tiempo,"Operacion": operacion}
             table.append(operaciones)
+            mat = FuncionesS.matrizOriginal()
+            matrotV = FuncionesS.rVertical(mat)
+            FuncionesS.graficar("rVertical",matrotV)
+
         elif operacion == "Transpuesta":
             print(fecha+"   "+tiempo+"   Transpuesta")
             operaciones = {"Fecha":fecha,"Hora":tiempo,"Operacion": operacion}
             table.append(operaciones)
+            mat = FuncionesS.matrizOriginal()
+            matra = FuncionesS.transpuesta(mat)
+            FuncionesS.graficar("Transpuesta",matra)
+
+
         #--------------------- OPERACIONES CON PARAMETROS --------------------------
         elif operacion == "Limpiar zona":
             print(fecha+"   "+tiempo+"   Limpiar zona")
@@ -81,6 +96,7 @@ class FuncionesS:
             from Funciones.Ventanas import ventanas
             mat = FuncionesS.matrizOriginal() 
             ventanas.cuatro(mat)
+
         elif operacion == "Agregar línea horizontal":
             print(fecha+"   "+tiempo+"   Agregar línea horizontal")
             operaciones = {"Fecha":fecha,"Hora":tiempo,"Operacion": operacion}
@@ -104,6 +120,7 @@ class FuncionesS:
             from Funciones.Ventanas import ventanas
             mat = FuncionesS.matrizOriginal() 
             ventanas.siete(mat)
+
         elif operacion == "Agregar triángulo rectángulo":
             print(fecha+"   "+tiempo+"   Agregar triángulo rectángulo")
             operaciones = {"Fecha":fecha,"Hora":tiempo,"Operacion": operacion}
@@ -252,4 +269,37 @@ class FuncionesS:
 
         messagebox.showinfo("Reporte","Reporte Generado con exito")
 
-    
+    def rVertical(mat):
+        v=[]
+        for f in range(len(mat)):
+            columna = len(mat[0])
+            v.append([])
+            while(columna != 0):
+                v[f].append(mat[f][columna-1])
+                columna -= 1
+
+        return v 
+
+    def rHorizontal(mat):
+        v=[]
+        contador = len(mat)
+        fila = 0
+        while( contador != 0):
+            columna = 0
+            v.append([])
+            while(columna != len(mat[0])):
+                v[fila].append(mat[contador-1][columna]) 
+                columna += 1
+            fila +=1
+            contador -= 1
+        
+        return v
+
+    def transpuesta(mat):
+        t=[]
+        for i in range(len(mat[0])):
+            t.append([])
+            for j in range(len(mat)):
+                t[i].append(mat[j][i])
+        
+        return t
