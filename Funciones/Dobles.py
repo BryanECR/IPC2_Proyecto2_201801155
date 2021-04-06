@@ -3,11 +3,13 @@ import xml.etree.ElementTree as ET
 import time
 import os
 from Listas.matriz import Matriz
+from tkinter import messagebox
 
 
 matrix1 = Matriz()
 matrix2 = Matriz()
 table = []
+matrices = []
 
 class Dobles:
 
@@ -72,6 +74,7 @@ class Dobles:
             imagen = elem[3].text
             info = {"Nombre":nombre,"Filas":filas,"Columnas":columnas,"Imagen":imagen}
             imagenes.append(info)
+            
         
 
         #CREAR LOS ENCABEZADOS
@@ -98,7 +101,11 @@ class Dobles:
                 else:
                     matrix1.insertarCelda(f,c,"-")
                     evacios += 1
-        
+
+        tiempo = str(time.strftime("%X"))
+        fecha = str(time.strftime("%x")) 
+        infoM = {"Fecha":fecha,"Hora":tiempo,"Nombre":imagenes[0]['Nombre'],"Ellenos":ellenos,"Evacios":evacios }
+        matrices.append(infoM)
         mat1 = Dobles.matrixOriginal(matrix1)
         Dobles.graficar("Matriz1",mat1)
 
@@ -128,7 +135,9 @@ class Dobles:
                 else:
                     matrix2.insertarCelda(f,c,"-")
                     evacios += 1
-
+        
+        infoM = {"Fecha":fecha,"Hora":tiempo,"Nombre":imagenes[1]['Nombre'],"Ellenos":ellenos,"Evacios":evacios }
+        matrices.append(infoM)
         mat2 = Dobles.matrixOriginal(matrix2)
         Dobles.graficar("Matriz2",mat2)
 
@@ -141,8 +150,8 @@ class Dobles:
                 if str(mat1[f][c]) == str(mat2[f][c]):
                     new[f].append(mat1[f][c])
                 elif str(mat1[f][c]) != str(mat2[f][c]):
-                    if mat1[f][c] == 0 or mat2[f][c]== 0:
-                        new[f].append(0)
+                    if mat1[f][c] == "*" or mat2[f][c]== "*":
+                        new[f].append("*")
 
         Dobles.graficar("Union",new)
 
@@ -228,7 +237,7 @@ class Dobles:
         <html lang="es">
         <head>
         <meta charset="UTF-8">
-        <title>Reporte Operaciones Simples</title>
+        <title>Reporte Operaciones con dos Matrices</title>
         <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
         <style>
@@ -264,9 +273,8 @@ class Dobles:
         </thead>
         <tbody>
         '''
-
-        
-        html += '\n<tr>\n<th scope="row">'+str(info['Fecha'])+'</th>\n<th>'+str(info['Hora'])+'</th>\n<th>'+str(info['Nombre'])+'</th>\n<th>'+str(info['Ellenos'])+'</th>\n<th>'+str(info['Evacios'])+'</th>\n</tr>\n'
+        for i in range(len(matrices)):
+            html += '\n<tr>\n<th scope="row">'+str(matrices[i]['Fecha'])+'</th>\n<th>'+str(matrices[i]['Hora'])+'</th>\n<th>'+str(matrices[i]['Nombre'])+'</th>\n<th>'+str(matrices[i]['Ellenos'])+'</th>\n<th>'+str(matrices[i]['Evacios'])+'</th>\n</tr>\n'
 
         html+= ''' </tbody>
         </table>
@@ -277,17 +285,16 @@ class Dobles:
         <th scope="col">Fecha</th>
         <th scope="col">Hora</th>
         <th scope="col">Tipo de Operacion</th>
-        <th scope="col">Nombre</th>
         </tr>
         </thead>\n<tbody>'''
 
         for i in range(len(table)):
-            html += '\n<tr>\n<th scope="row">'+str(table[i]['Fecha'])+'</th>\n<th>'+str(table[i]['Hora'])+'</th>\n<th>'+str(table[i]['Operacion'])+'</th>\n<th>'+str(info['Nombre'])+'</th> \n</tr>\n'
+            html += '\n<tr>\n<th scope="row">'+str(table[i]['Fecha'])+'</th>\n<th>'+str(table[i]['Hora'])+'</th>\n<th>'+str(table[i]['Operacion'])+'</th>\n</tr>\n'
         
 
         html += '''\n</tbody>\n</table>\n</div>\n</body>\n</html> '''
 
-        file = open("Reporte1.html","w")
+        file = open("Reporte2.html","w")
         file.write(html)
         file.close()
 

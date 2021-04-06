@@ -30,15 +30,15 @@ class Dos:
         Operaciones.add_command(label="Diferencia simétrica",command=lambda:Dobles.Operaciones("Simetrica") )
         Reportes = Menu(barraMenu,tearoff=0)
         barraMenu.add_cascade(label="Reportes", menu=Reportes)
-        Reportes.add_command(label="Generar Reporte")
+        Reportes.add_command(label="Generar Reporte",command=lambda:Dobles.reporte() )
         Ayuda = Menu(barraMenu,tearoff=0)
         barraMenu.add_cascade(label="Ayuda", menu=Ayuda)
         Ayuda.add_command(label="Informacion",command=lambda:FuncionesS.informacion() )
         Ayuda.add_command(label="Documentacion",command=lambda:FuncionesS.docu() )
 
-        label1 = Label(raiz,text="Matriz 1",font=18).place(x=70,y=20)
-        label2 = Label(raiz,text="Matriz 2",font=18).place(x=400,y=20)
-        label3 = Label(raiz,text="Resultado",font=18).place(x=700,y=20)
+        label1 = Label(raiz,text="Matriz 1",font=18).place(x=120,y=20)
+        label2 = Label(raiz,text="Matriz 2",font=18).place(x=450,y=20)
+        label3 = Label(raiz,text="Resultado",font=18).place(x=800,y=20)
 
         def mostrar1():
             try:
@@ -51,7 +51,7 @@ class Dos:
         def mostrar2():
             try:
                 imagen = ImageTk.PhotoImage(Image.open(r'Matriz2.png'))
-                labelimagen = Label(raiz,image=imagen).place(x=300,y=50)
+                labelimagen = Label(raiz,image=imagen).place(x=350,y=50)
                 raiz.mainloop()
             except:
                 print("La imagen no existe")
@@ -59,7 +59,7 @@ class Dos:
         def mostrarOperaciones():
             if str(arr[-1]) == "Union":
                 imagen = ImageTk.PhotoImage(Image.open(r'Union.png'))
-                labelimagen = Label(raiz,image=imagen).place(x=70,y=50)
+                labelimagen = Label(raiz,image=imagen).place(x=700,y=50)
                 raiz.mainloop()
 
             elif str(arr[-1]) == "Interseccion":
