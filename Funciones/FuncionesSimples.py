@@ -9,6 +9,7 @@ arr = []
 table = []
 info = {}
 matrix = Matriz()
+
 class FuncionesS:
 
     def graficar(nombre,mat):
